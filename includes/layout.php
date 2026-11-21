@@ -56,7 +56,7 @@ function renderPageStart(string $pageTitle): void {
                             <strong><?= htmlspecialchars($userName) ?></strong>
                             <span class="badge-role"><?= htmlspecialchars($role) ?></span>
                         </div>
-                        <a href="/logout.php" class="logout-link">Logout</a>
+                        <a href="/logout.php" class="btn btn-danger btn-sm">Logout</a>
                     </div>
                 </div>
             </aside>
