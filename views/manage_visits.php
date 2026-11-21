@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['visit_id'], $_POST['a
 
         // Call Python venv to generate QR pass
         $pythonExe = PHP_OS_FAMILY === 'Windows'
-            ? realpath(__DIR__ . '/../venv/Scripts/python.exe')
-            : realpath(__DIR__ . '/../venv/bin/python');
-        $script    = realpath(__DIR__ . '/../python_services/make_qr.py');
+                ? __DIR__ . '/../venv/Scripts/python.exe'
+                : '/var/www/html/venv/bin/python';
+            $script    = realpath(__DIR__ . '/../python_services/make_qr.py');
         $cmd       = "\"$pythonExe\" \"$script\" " . escapeshellarg((string)$visitId) . " " . escapeshellarg($visitorName) . " 2>&1";
         $qrOutput  = trim((string)shell_exec($cmd));
 

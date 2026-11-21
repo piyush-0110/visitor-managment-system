@@ -89,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'],$_PO
             ]);
             $visitId = (int)$pdo->lastInsertId();
 
-            $pythonExe = PHP_OS_FAMILY === 'Windows'
-                ? realpath(__DIR__ . '/../venv/Scripts/python.exe')
-                : realpath(__DIR__ . '/../venv/bin/python');
+           $pythonExe = PHP_OS_FAMILY === 'Windows'
+                ? __DIR__ . '/../venv/Scripts/python.exe'
+                : '/var/www/html/venv/bin/python';
             $script    = realpath(__DIR__ . '/../python_services/make_qr.py');
             $cmd       = "\"$pythonExe\" \"$script\" " . escapeshellarg((string)$visitId) . " " . escapeshellarg($app['visitor_name']) . " 2>&1";
             $qrOutput  = trim((string)shell_exec($cmd));

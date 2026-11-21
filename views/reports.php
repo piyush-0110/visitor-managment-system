@@ -10,9 +10,9 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['format'])) {
     $format = $_POST['format'] === 'pdf' ? 'pdf' : 'csv';
     $pythonExe = PHP_OS_FAMILY === 'Windows'
-        ? realpath(__DIR__ . '/../venv/Scripts/python.exe')
-        : realpath(__DIR__ . '/../venv/bin/python');
-    $script    = realpath(__DIR__ . '/../python_services/generate_report.py');
+                ? __DIR__ . '/../venv/Scripts/python.exe'
+                : '/var/www/html/venv/bin/python';
+            $script    = realpath(__DIR__ . '/../python_services/make_qr.py');
 
     $cmd = "\"$pythonExe\" \"$script\" " . escapeshellarg($format) . " 2>&1";
     $output = trim((string)shell_exec($cmd));
