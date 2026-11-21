@@ -1,0 +1,4 @@
+venv/
+assets/qr_codes/*.png
+assets/reports/*.csv
+assets/reports/*.pdf
