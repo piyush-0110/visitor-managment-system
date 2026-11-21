@@ -21,13 +21,13 @@ function renderPageStart(string $pageTitle): void {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= htmlspecialchars($pageTitle) ?> — VMS Enterprise</title>
-        <link rel="stylesheet" href="//assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <script src="https://unpkg.com/lucide@latest"></script>
     </head>
     <body>
         <div class="app-shell">
             <aside class="sidebar">
-                <a href="//views/dashboard.php" class="sidebar-brand">
+                <a href="/views/dashboard.php" class="sidebar-brand">
                     <div class="brand-icon">V</div>
                     <div class="brand-text">
                         <span>VMS Portal</span>
@@ -42,7 +42,7 @@ function renderPageStart(string $pageTitle): void {
                             <?php if ($item['file'] === 'blacklist.php'): ?>
                                 <div class="nav-section-label">Administration</div>
                             <?php endif; ?>
-                            <a href="//views/<?= $item['file'] ?>" class="nav-item <?= $currentPage === $item['file'] ? 'active' : '' ?>">
+                            <a href="/views/<?= $item['file'] ?>" class="nav-item <?= $currentPage === $item['file'] ? 'active' : '' ?>">
                                 <i data-lucide="<?= $item['icon'] ?>"></i>
                                 <span><?= htmlspecialchars($item['label']) ?></span>
                             </a>

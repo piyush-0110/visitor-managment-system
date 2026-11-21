@@ -24,7 +24,7 @@ if (!$pass) {
 <head>
     <meta charset="UTF-8">
     <title>Visitor Pass #<?= $pass['visit_id'] ?></title>
-    <link rel="stylesheet" href="//assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <style>
         body { background: #e2e8f0; display: grid; place-items: center; min-height: 100vh; padding: 1.5rem; }
         .pass-card {

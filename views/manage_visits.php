@@ -144,10 +144,10 @@ renderPageStart('Gate & Approvals');
                                         <button name="action" value="reject" class="btn btn-sm btn-danger">Reject</button>
                                     <?php elseif ($v['status'] === 'approved'): ?>
                                         <button name="action" value="check_in" class="btn btn-sm">Check In</button>
-                                        <a href="//views/visitor_pass.php?id=<?= $v['visit_id'] ?>" target="_blank" class="btn btn-sm btn-dark">QR Pass</a>
+                                        <a href="/views/visitor_pass.php?id=<?= $v['visit_id'] ?>" target="_blank" class="btn btn-sm btn-dark">QR Pass</a>
                                     <?php elseif ($v['status'] === 'checked_in'): ?>
                                         <button name="action" value="check_out" class="btn btn-sm btn-danger">Check Out</button>
-                                        <a href="//views/visitor_pass.php?id=<?= $v['visit_id'] ?>" target="_blank" class="btn btn-sm btn-dark">QR Pass</a>
+                                        <a href="/views/visitor_pass.php?id=<?= $v['visit_id'] ?>" target="_blank" class="btn btn-sm btn-dark">QR Pass</a>
                                     <?php else: ?>
                                         <span style="color: var(--muted); font-size: 0.82rem;">Closed</span>
                                     <?php endif; ?>

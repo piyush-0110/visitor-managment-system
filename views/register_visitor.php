@@ -78,7 +78,7 @@ renderPageStart('Register Visitor');
     <?php endif; ?>
     <?php if ($message): ?>
         <div class="alert-success">
-            <?= htmlspecialchars($message) ?> — <a href="//views/manage_visits.php" style="color: inherit; text-decoration: underline;"><strong>Go to Gate Approvals</strong></a>
+            <?= htmlspecialchars($message) ?> — <a href="/views/manage_visits.php" style="color: inherit; text-decoration: underline;"><strong>Go to Gate Approvals</strong></a>
         </div>
     <?php endif; ?>
 
@@ -128,7 +128,7 @@ renderPageStart('Register Visitor');
     </form>
 </div>
 
-<script src="//assets/js/validation.js"></script>
+<script src="/assets/js/validation.js"></script>
 <script>
     const hostSelect = document.getElementById("host_id");
     const customHostGroup = document.getElementById("customHostGroup");

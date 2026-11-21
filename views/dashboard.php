@@ -94,7 +94,7 @@ renderPageStart('Dashboard');
 <div class="card">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="font-size: 1.05rem;">Recent Visitor Activity</h3>
-        <a href="//views/register_visitor.php" class="btn btn-sm">+ New Visitor Entry</a>
+        <a href="/views/register_visitor.php" class="btn btn-sm">+ New Visitor Entry</a>
     </div>
 
     <div class="table-wrap">

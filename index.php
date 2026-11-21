@@ -4,7 +4,7 @@ require_once 'config/db.php';
 require_once 'includes/auth.php';
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: //views/dashboard.php");
+    header("Location: /views/dashboard.php");
     exit;
 }
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['role']    = $user['role'];
 
         logAudit($pdo, (int)$user['user_id'], "Logged into VMS");
-        header("Location: //views/dashboard.php");
+        header("Location: /views/dashboard.php");
         exit;
     } else {
         $error = "Invalid email or password.";
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — Visitor Management System</title>
-    <link rel="stylesheet" href="//assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div class="login-wrapper">
