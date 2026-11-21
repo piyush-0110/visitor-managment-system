@@ -64,7 +64,7 @@ if (!$pass) {
         <div class="pass-body">
             <?php if ($pass['qr_code_path']): ?>
                 <div class="qr-frame">
-                    <img src="//<?= htmlspecialchars($pass['qr_code_path']) ?>" alt="QR Code" style="width: 165px; height: 165px; display: block;">
+                    <img src="/<?= htmlspecialchars($pass['qr_code_path']) ?>" alt="QR Code" style="width: 165px; height: 165px; display: block;">
                 </div>
             <?php endif; ?>
 

@@ -51,7 +51,7 @@ renderPageStart('Python Reports');
         <button type="submit" name="format" value="pdf" class="btn btn-success">Generate PDF Report</button>
 
         <?php if ($generatedFile): ?>
-            <a href="//<?= htmlspecialchars($generatedFile) ?>" download class="btn btn-dark">
+            <a href="/<?= htmlspecialchars($generatedFile) ?>" download class="btn btn-dark">
                 Download Ready File (<?= strtoupper(pathinfo($generatedFile, PATHINFO_EXTENSION)) ?>)
             </a>
         <?php endif; ?>

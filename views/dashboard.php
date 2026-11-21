@@ -135,7 +135,7 @@ renderPageStart('Dashboard');
     const markBtn = document.getElementById("markReadBtn");
     if (markBtn) {
         markBtn.addEventListener("click", async () => {
-            const res = await fetch("//api/mark_notifications.php", { method: "POST" });
+            const res = await fetch("/api/mark_notifications.php", { method: "POST" });
             const data = await res.json();
             if (data.status === "ok") {
                 document.getElementById("notifList").innerHTML =

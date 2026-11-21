@@ -65,7 +65,7 @@ renderPageStart('Live QR Scanner');
         isProcessing = true;
 
         try {
-            const response = await fetch("//api/scan_qr.php", {
+            const response = await fetch("/api/scan_qr.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ qr_data: qrText })
