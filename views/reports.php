@@ -18,23 +18,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['format'])) {
     $fullOutputPath = __DIR__ . '/../' . $relativePath;
     $tempJsonPath = sys_get_temp_dir() . '/vms_export_' . uniqid() . '.json';
 
-    // Fetch visit rows via PHP's active $pdo connection (works on both TiDB Cloud & Localhost)
-    $visitRows = $pdo->query("
-        SELECT v.visit_id,
+    // Fetch visit rows safely without hardcoding v.created_at
+    $rawRows = $pdo->query("
+        SELECT v.*,
                vis.name AS visitor_name,
                vis.phone AS visitor_phone,
                vis.organization,
-               v.purpose,
-               COALESCE(u.name, v.custom_host_name, 'Unassigned') AS host_name,
-               v.status,
-               v.check_in_time,
-               v.check_out_time,
-               v.created_at
+               COALESCE(u.name, v.custom_host_name, 'Unassigned') AS host_name
         FROM visits v
         JOIN visitors vis ON v.visitor_id = vis.visitor_id
         LEFT JOIN users u ON v.host_id = u.user_id
         ORDER BY v.visit_id DESC
     ")->fetchAll(PDO::FETCH_ASSOC);
+
+    $visitRows = array_map(function ($r) {
+        return [
+            'visit_id'       => $r['visit_id'] ?? '',
+            'visitor_name'   => $r['visitor_name'] ?? '',
+            'visitor_phone'  => $r['visitor_phone'] ?? '',
+            'organization'   => $r['organization'] ?? '—',
+            'purpose'        => $r['purpose'] ?? '',
+            'host_name'      => $r['host_name'] ?? 'Unassigned',
+            'status'         => $r['status'] ?? '',
+            'check_in_time'  => $r['check_in_time'] ?? null,
+            'check_out_time' => $r['check_out_time'] ?? null,
+            'created_at'     => $r['created_at'] ?? ($r['timestamp'] ?? ($r['check_in_time'] ?? '—')),
+        ];
+    }, $rawRows);
 
     file_put_contents($tempJsonPath, json_encode($visitRows, JSON_UNESCAPED_UNICODE));
 
