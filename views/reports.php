@@ -9,16 +9,24 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['format'])) {
     $format = $_POST['format'] === 'pdf' ? 'pdf' : 'csv';
-    $pythonExe = PHP_OS_FAMILY === 'Windows'
-                ? __DIR__ . '/../venv/Scripts/python.exe'
-                : '/var/www/html/venv/bin/python';
-            $script    = realpath(__DIR__ . '/../python_services/make_qr.py');
+    $reportsDir = __DIR__ . '/../assets/reports';
+    if (!is_dir($reportsDir)) {
+        mkdir($reportsDir, 0777, true);
+    }
 
-    $cmd = "\"$pythonExe\" \"$script\" " . escapeshellarg($format) . " 2>&1";
+    $relativePath = 'assets/reports/vms_visits_' . date('Ymd_His') . '.' . $format;
+    $fullOutputPath = __DIR__ . '/../' . $relativePath;
+
+    $pythonExe = PHP_OS_FAMILY === 'Windows'
+        ? __DIR__ . '/../venv/Scripts/python.exe'
+        : '/var/www/html/venv/bin/python';
+    $script = __DIR__ . '/../python_services/generate_report.py';
+
+    $cmd = "\"$pythonExe\" \"$script\" " . escapeshellarg($format) . " " . escapeshellarg($fullOutputPath) . " 2>&1";
     $output = trim((string)shell_exec($cmd));
 
-    if (strpos($output, 'assets/reports/') === 0) {
-        $generatedFile = $output;
+    if (str_contains($output, 'SUCCESS') && file_exists($fullOutputPath)) {
+        $generatedFile = $relativePath;
         logAudit($pdo, (int)$_SESSION['user_id'], "Generated Python $format visitor report");
     } else {
         $error = "Python Report Error: " . $output;
@@ -39,7 +47,7 @@ renderPageStart('Python Reports');
 <div class="card" style="margin-bottom: 1.75rem;">
     <h2 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Python Visitor Analytics &amp; Export Engine</h2>
     <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-        Uses Python (<code>pandas</code> &amp; <code>reportlab</code>) to compile MySQL visit records into downloadable reports.
+        Uses Python (<code>csv</code> &amp; <code>reportlab</code>) to compile TiDB/MySQL visit records into downloadable reports.
     </p>
 
     <?php if ($error): ?>
