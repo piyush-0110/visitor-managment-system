@@ -86,9 +86,9 @@ if (isset($_GET['restart'])) {
     <title>Reset Password — VMS Portal</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body style="background: #0f172a; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;">
+<body style="background: #111827; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;">
     <div style="background: #ffffff; width: 100%; max-width: 420px; padding: 36px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.25);">
-        <h2 style="margin: 0 0 8px; color: #0f172a; font-size: 22px;">Reset Password</h2>
+        <h2 style="margin: 0 0 8px; color: #111827; font-size: 22px;">Reset Password</h2>
         <p style="margin: 0 0 24px; color: #64748b; font-size: 14px;">
             <?= $step === 1 ? 'Enter your registered email to receive a 6-digit OTP.' : 'Enter the OTP sent to <strong>' . htmlspecialchars($resetEmail) . '</strong>.' ?>
         </p>
@@ -111,7 +111,7 @@ if (isset($_GET['restart'])) {
                 <input type="email" name="email" required placeholder="yourpersonalmail@gmail.com"
                        style="width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 18px; box-sizing: border-box;">
                 <button type="submit" name="send_otp"
-                        style="width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        style="width: 100%; padding: 12px; background: #0f766e; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
                     Send OTP Code
                 </button>
             </form>
@@ -140,7 +140,7 @@ if (isset($_GET['restart'])) {
         <?php endif; ?>
 
         <div style="text-align: center; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 16px;">
-            <a href="/index.php" style="color: #2563eb; font-size: 13px; font-weight: 600; text-decoration: none;">← Back to Sign In</a>
+            <a href="/index.php" style="color: #0f766e; font-size: 13px; font-weight: 600; text-decoration: none;">← Back to Sign In</a>
         </div>
     </div>
 </body>

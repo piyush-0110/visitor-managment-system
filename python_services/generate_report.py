@@ -63,7 +63,7 @@ def export_report(fmt: str):
             data = [df.columns.tolist()] + df.astype(str).values.tolist()
             table = Table(data, repeatRows=1)
             table.setStyle(TableStyle([
-                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#2563eb")),
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0f766e")),
                 ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
                 ("FONTSIZE", (0, 0), (-1, -1), 8),
                 ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),

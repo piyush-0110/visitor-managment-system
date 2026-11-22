@@ -19,10 +19,10 @@ def send_otp(recipient_email, otp_code):
         "subject": f"{otp_code} is your VMS Portal Password Reset Code",
         "htmlContent": f"""
         <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 480px; margin: auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 10px;">
-            <h2 style="color: #0f172a; margin-top: 0;">Password Reset Request</h2>
+            <h2 style="color: #111827; margin-top: 0;">Password Reset Request</h2>
             <p style="color: #475569; font-size: 15px;">Use the one-time verification code below to reset your VMS Portal password. This code expires in <strong>10 minutes</strong>.</p>
             <div style="background: #f1f5f9; padding: 16px; text-align: center; border-radius: 8px; margin: 20px 0;">
-                <span style="font-size: 28px; font-weight: 700; letter-spacing: 6px; color: #2563eb;">{otp_code}</span>
+                <span style="font-size: 28px; font-weight: 700; letter-spacing: 6px; color: #0f766e;">{otp_code}</span>
             </div>
             <p style="color: #94a3b8; font-size: 12px; margin-bottom: 0;">If you did not request this reset, you can safely ignore this email.</p>
         </div>

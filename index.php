@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — Visitor Management System</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=2">
 </head>
 <body>
     <div class="login-wrapper">
@@ -58,22 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="piyushkumawat911@gmail.com" required>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group" style="margin-bottom: 8px;">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
                 <div style="text-align: right; margin-bottom: 18px;">
-                    <a href="/forgot_password.php" style="color: #2563eb; font-size: 13px; font-weight: 600; text-decoration: none;">Forgot Password?</a>
+                    <a href="/forgot_password.php" style="color: #0f766e; font-size: 13px; font-weight: 600; text-decoration: none;">Forgot Password?</a>
                 </div>
                 <button type="submit" class="btn" style="width: 100%;">Sign In</button>
             </form>
-            <div style="margin-top: 1.25rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 0.8rem;">
-                <strong>Demo Logins (Password: <code>password</code>):</strong><br>
-                Admin: <code>admin@vms.local</code><br>
-                Security: <code>security@vms.local</code>
-            </div>
         </div>
     </div>
 </body>

@@ -32,7 +32,7 @@ if (!$pass) {
             overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid #cbd5e1; text-align: center;
         }
         .pass-header {
-            background: linear-gradient(135deg, #0f172a, #312e81); color: #fff; padding: 1.25rem;
+            background: linear-gradient(135deg, #111827, #312e81); color: #fff; padding: 1.25rem;
         }
         .lanyard-slot {
             width: 56px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 999px; margin: 0 auto 0.85rem;
