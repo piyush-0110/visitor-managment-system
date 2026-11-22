@@ -49,18 +49,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert-error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
+            <?php if (isset($_GET['reset'])): ?>
+                <div style="background: #ecfdf5; color: #059669; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; border: 1px solid #a7f3d0;">
+                    Password updated successfully! Sign in with your new password.
+                </div>
+            <?php endif; ?>
+
             <form method="POST" action="">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="admin@vms.local" required>
+                    <input type="email" id="email" name="email" placeholder="piyushkumawat911@gmail.com" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 8px;">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
+                <div style="text-align: right; margin-bottom: 18px;">
+                    <a href="/forgot_password.php" style="color: #2563eb; font-size: 13px; font-weight: 600; text-decoration: none;">Forgot Password?</a>
+                </div>
                 <button type="submit" class="btn" style="width: 100%;">Sign In</button>
             </form>
-
             <div style="margin-top: 1.25rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 0.8rem;">
                 <strong>Demo Logins (Password: <code>password</code>):</strong><br>
                 Admin: <code>admin@vms.local</code><br>

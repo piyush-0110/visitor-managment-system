@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 function requireLogin(array $allowedRoles = []): void {
     if (!isset($_SESSION['user_id'])) {
-        header("Location: //index.php");
+        header("Location: /index.php");
         exit;
     }
     if (!empty($allowedRoles) && !in_array($_SESSION['role'], $allowedRoles, true)) {

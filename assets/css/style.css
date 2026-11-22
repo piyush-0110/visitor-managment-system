@@ -1,29 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-soft: #eef2ff;
-    --sidebar-bg: #0f172a;
-    --sidebar-hover: #1e293b;
-    --sidebar-text: #94a3b8;
-    --bg: #f8fafc;
-    --surface: #ffffff;
-    --text: #0f172a;
-    --muted: #64748b;
-    --border: #e2e8f0;
-    --success: #10b981;
-    --success-soft: #d1fae5;
-    --warning: #f59e0b;
-    --warning-soft: #fef3c7;
-    --danger: #ef4444;
-    --danger-soft: #fee2e2;
-    --radius: 12px;
-    --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-    --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.08);
-    --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.15);
+  --primary: #0f172a;          /* Deep Executive Slate */
+  --primary-hover: #1e293b;    /* Elevated Slate */
+  --accent: #2563eb;           /* Corporate Royal Blue */
+  --accent-hover: #1d4ed8;     /* Deep Royal Blue */
+  --sidebar-bg: #0b1120;       /* Midnight Navy Sidebar */
+  --sidebar-active: #1e293b;   /* Subtle Active Pill */
+  --bg-main: #f8fafc;          /* Clean Cool Off-White */
+  --card-bg: #ffffff;          /* Pure Crisp White Cards */
+  --text-main: #0f172a;        /* High-Contrast Ink */
+  --text-muted: #64748b;       /* Muted Slate Gray */
+  --border-color: #e2e8f0;     /* Subtle Hairline Border */
+  --success: #059669;          /* Emerald Green */
+  --warning: #d97706;          /* Warm Amber */
+  --danger: #dc2626;           /* Crisp Crimson */
 }
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -72,7 +64,7 @@ body {
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    background: linear-gradient(135deg, #6366f1, #2563eb);
     display: grid;
     place-items: center;
     font-weight: 800;
@@ -131,7 +123,7 @@ body {
 .nav-item.active {
     background: linear-gradient(90deg, rgba(79, 70, 229, 0.25), rgba(79, 70, 229, 0.08));
     color: #fff;
-    border-left: 3px solid #6366f1;
+    border-left: 3px solid #1d4ed8;
     font-weight: 600;
 }
 
