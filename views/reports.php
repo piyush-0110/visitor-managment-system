@@ -16,14 +16,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['format'])) {
 
     $relativePath = 'assets/reports/vms_visits_' . date('Ymd_His') . '.' . $format;
     $fullOutputPath = __DIR__ . '/../' . $relativePath;
+    $tempJsonPath = sys_get_temp_dir() . '/vms_export_' . uniqid() . '.json';
+
+    // Fetch visit rows via PHP's active $pdo connection (works on both TiDB Cloud & Localhost)
+    $visitRows = $pdo->query("
+        SELECT v.visit_id,
+               vis.name AS visitor_name,
+               vis.phone AS visitor_phone,
+               vis.organization,
+               v.purpose,
+               COALESCE(u.name, v.custom_host_name, 'Unassigned') AS host_name,
+               v.status,
+               v.check_in_time,
+               v.check_out_time,
+               v.created_at
+        FROM visits v
+        JOIN visitors vis ON v.visitor_id = vis.visitor_id
+        LEFT JOIN users u ON v.host_id = u.user_id
+        ORDER BY v.visit_id DESC
+    ")->fetchAll(PDO::FETCH_ASSOC);
+
+    file_put_contents($tempJsonPath, json_encode($visitRows, JSON_UNESCAPED_UNICODE));
 
     $pythonExe = PHP_OS_FAMILY === 'Windows'
         ? __DIR__ . '/../venv/Scripts/python.exe'
         : '/var/www/html/venv/bin/python';
     $script = __DIR__ . '/../python_services/generate_report.py';
 
-    $cmd = "\"$pythonExe\" \"$script\" " . escapeshellarg($format) . " " . escapeshellarg($fullOutputPath) . " 2>&1";
+    $cmd = "\"$pythonExe\" \"$script\" "
+         . escapeshellarg($format) . " "
+         . escapeshellarg($fullOutputPath) . " "
+         . escapeshellarg($tempJsonPath) . " 2>&1";
     $output = trim((string)shell_exec($cmd));
+    @unlink($tempJsonPath);
 
     if (str_contains($output, 'SUCCESS') && file_exists($fullOutputPath)) {
         $generatedFile = $relativePath;

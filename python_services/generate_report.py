@@ -1,56 +1,12 @@
 import os
 import sys
 import csv
-import mysql.connector
+import json
 from datetime import datetime
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-
-def get_db_connection():
-    host = os.environ.get("DB_HOST", "127.0.0.1")
-    port = int(os.environ.get("DB_PORT", 3306))
-    user = os.environ.get("DB_USER", "root")
-    password = os.environ.get("DB_PASS", "")
-    database = os.environ.get("DB_NAME", "test")
-
-    conn_args = {
-        "host": host,
-        "port": port,
-        "user": user,
-        "password": password,
-        "database": database,
-    }
-    if "tidbcloud.com" in host:
-        conn_args["ssl_disabled"] = False
-
-    return mysql.connector.connect(**conn_args)
-
-def fetch_visits():
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    query = """
-        SELECT v.visit_id,
-               vis.name AS visitor_name,
-               vis.phone AS visitor_phone,
-               vis.organization,
-               v.purpose,
-               COALESCE(u.name, v.custom_host_name, 'Unassigned') AS host_name,
-               v.status,
-               v.check_in_time,
-               v.check_out_time,
-               v.created_at
-        FROM visits v
-        JOIN visitors vis ON v.visitor_id = vis.visitor_id
-        LEFT JOIN users u ON v.host_id = u.user_id
-        ORDER BY v.visit_id DESC
-    """
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return rows
 
 def generate_csv(output_path, rows):
     headers = ["Visit ID", "Visitor Name", "Phone", "Organization", "Purpose", "Host", "Status", "Check-In", "Check-Out", "Created At"]
@@ -59,16 +15,16 @@ def generate_csv(output_path, rows):
         writer.writerow(headers)
         for r in rows:
             writer.writerow([
-                r["visit_id"],
-                r["visitor_name"],
-                r["visitor_phone"],
-                r["organization"] or "—",
-                r["purpose"],
-                r["host_name"],
-                str(r["status"]).upper(),
-                str(r["check_in_time"] or "—"),
-                str(r["check_out_time"] or "—"),
-                str(r["created_at"])
+                r.get("visit_id", ""),
+                r.get("visitor_name", ""),
+                r.get("visitor_phone", ""),
+                r.get("organization") or "—",
+                r.get("purpose", ""),
+                r.get("host_name") or "Unassigned",
+                str(r.get("status", "")).upper(),
+                str(r.get("check_in_time") or "—"),
+                str(r.get("check_out_time") or "—"),
+                str(r.get("created_at", ""))
             ])
 
 def generate_pdf(output_path, rows):
@@ -83,14 +39,14 @@ def generate_pdf(output_path, rows):
     table_data = [["ID", "Visitor Name", "Phone", "Purpose", "Host", "Status", "Check-In", "Check-Out"]]
     for r in rows:
         table_data.append([
-            str(r["visit_id"]),
-            str(r["visitor_name"])[:22],
-            str(r["visitor_phone"]),
-            str(r["purpose"])[:24],
-            str(r["host_name"])[:20],
-            str(r["status"]).upper(),
-            str(r["check_in_time"] or "—")[:16],
-            str(r["check_out_time"] or "—")[:16],
+            str(r.get("visit_id", "")),
+            str(r.get("visitor_name", ""))[:22],
+            str(r.get("visitor_phone", "")),
+            str(r.get("purpose", ""))[:24],
+            str(r.get("host_name") or "Unassigned")[:20],
+            str(r.get("status", "")).upper(),
+            str(r.get("check_in_time") or "—")[:16],
+            str(r.get("check_out_time") or "—")[:16],
         ])
 
     tbl = Table(table_data, repeatRows=1)
@@ -107,16 +63,19 @@ def generate_pdf(output_path, rows):
     doc.build(elements)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("ERROR: Usage: generate_report.py <csv|pdf> <output_path>")
+    if len(sys.argv) < 4:
+        print("ERROR: Usage: generate_report.py <csv|pdf> <output_path> <json_data_path>")
         sys.exit(1)
 
     fmt = sys.argv[1].lower().strip()
     out_path = sys.argv[2]
+    json_path = sys.argv[3]
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
     try:
-        data = fetch_visits()
+        with open(json_path, "r", encoding="utf-8") as jf:
+            data = json.load(jf)
+
         if fmt == "csv":
             generate_csv(out_path, data)
         elif fmt == "pdf":
