@@ -62,7 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="form-group" style="margin-bottom: 8px;">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <input type="password" id="password" name="password" placeholder="••••••••" required style="width: 100%; padding-right: 4.2rem;">
+                        <button type="button" id="togglePasswordBtn" aria-label="Toggle password visibility"
+                                style="position: absolute; right: 0.6rem; background: transparent; border: none; color: #0f766e; font-weight: 600; font-size: 0.82rem; cursor: pointer; padding: 0.25rem 0.45rem;">
+                            Show
+                        </button>
+                    </div>
                 </div>
                 <div style="text-align: right; margin-bottom: 18px;">
                     <a href="/forgot_password.php" style="color: #0f766e; font-size: 13px; font-weight: 600; text-decoration: none;">Forgot Password?</a>
@@ -71,5 +77,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+
+        togglePasswordBtn.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            togglePasswordBtn.textContent = isHidden ? "Hide" : "Show";
+        });
+    </script>
 </body>
 </html>
